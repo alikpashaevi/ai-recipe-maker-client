@@ -4,12 +4,12 @@ import { useState, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { RecipeCard } from "./recipe-card"
-import { RecipeService, type Recipe } from "@/lib/recipe"
+import { FavoritesService, type FavoriteRecipe } from "@/lib/favorites"
 import { AuthService } from "@/lib/auth"
 import { Loader2, AlertCircle, Heart } from "lucide-react"
 
 export function FavoritesList() {
-  const [favorites, setFavorites] = useState<Recipe[]>([])
+  const [favorites, setFavorites] = useState<FavoriteRecipe[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState("")
 
@@ -22,10 +22,7 @@ export function FavoritesList() {
       const token = AuthService.getToken()
       if (!token) throw new Error("Not authenticated")
 
-      // Note: The API doesn't have a specific favorites endpoint,
-      // so we'll use the general recipes endpoint and filter favorites
-      // In a real implementation, you'd need a dedicated favorites endpoint
-      const recipes = await RecipeService.getRecipes(token)
+      const recipes = await FavoritesService.getFavorites(token)
       setFavorites(recipes)
     } catch (err) {
       setError("Failed to load favorite recipes")
@@ -35,7 +32,7 @@ export function FavoritesList() {
   }
 
   const handleRemoveFavorite = (recipeId: number) => {
-    setFavorites(favorites.filter((recipe) => recipe.id !== recipeId))
+    setFavorites(favorites.filter((recipe) => recipe.recipeId !== recipeId))
   }
 
   if (isLoading) {
@@ -79,7 +76,7 @@ export function FavoritesList() {
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {favorites.map((recipe) => (
-        <RecipeCard key={recipe.id} recipe={recipe} onRemove={handleRemoveFavorite} />
+        <RecipeCard key={recipe.recipeId} recipe={recipe} onRemove={handleRemoveFavorite} />
       ))}
     </div>
   )

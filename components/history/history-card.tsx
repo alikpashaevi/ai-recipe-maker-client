@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import type { UserHistoryDTO } from "@/lib/history"
@@ -23,22 +24,24 @@ export function HistoryCard({ historyItem }: HistoryCardProps) {
   }
 
   return (
-    <Card className="hover:shadow-md transition-shadow">
-      <CardHeader className="pb-3">
-        <div className="flex justify-between items-start">
-          <CardTitle className="text-lg text-balance">{historyItem.dishName}</CardTitle>
-          <Badge variant="outline" className="flex items-center gap-1 text-xs">
-            <Calendar className="h-3 w-3" />
-            {getRelativeTime()}
-          </Badge>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Clock className="h-4 w-4" />
-          <span>Viewed at {getTimeString()}</span>
-        </div>
-      </CardContent>
-    </Card>
+    <Link href={`/history/${historyItem.recipeId}`}>
+      <Card className="hover:shadow-md transition-shadow">
+        <CardHeader className="pb-3">
+          <div className="flex justify-between items-start">
+            <CardTitle className="text-lg text-balance">{historyItem.dishName}</CardTitle>
+            <Badge variant="outline" className="flex items-center gap-1 text-xs">
+              <Calendar className="h-3 w-3" />
+              {getRelativeTime()}
+            </Badge>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Clock className="h-4 w-4" />
+            <span>Viewed at {getTimeString()}</span>
+          </div>
+        </CardContent>
+      </Card>
+    </Link>
   )
 }
