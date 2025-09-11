@@ -1,5 +1,6 @@
 // Recipe service for AI recipe generation and management
 export interface RecipeResponse {
+  recipeId: number
   dish_name: string
   ingredients: string[]
   instructions: string[]
@@ -77,33 +78,5 @@ export class RecipeService {
     return response.json()
   }
 
-  static async addToFavorites(recipeId: number, token: string): Promise<string> {
-    const response = await fetch(`${API_BASE_URL}/user/favorites/${recipeId}`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-
-    if (!response.ok) {
-      throw new Error("Failed to add to favorites")
-    }
-
-    return response.text()
-  }
-
-  static async removeFromFavorites(recipeId: number, token: string): Promise<string> {
-    const response = await fetch(`${API_BASE_URL}/user/favorites/${recipeId}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-
-    if (!response.ok) {
-      throw new Error("Failed to remove from favorites")
-    }
-
-    return response.text()
-  }
+  
 }

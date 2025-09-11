@@ -1,4 +1,48 @@
-// User info service for managing dietary preferences and profile data
+import { AuthService, type User } from "./auth";
+
+export const CUISINE_OPTIONS = [
+  "Italian",
+  "Chinese",
+  "Mexican",
+  "Indian",
+  "Japanese",
+  "Thai",
+  "French",
+  "Mediterranean",
+  "American",
+  "Korean",
+  "Vietnamese",
+  "Greek",
+  "Spanish",
+  "Middle Eastern",
+  "Other",
+]
+
+export const COMMON_ALLERGIES = [
+  "Nuts",
+  "Peanuts",
+  "Shellfish",
+  "Fish",
+  "Eggs",
+  "Dairy",
+  "Soy",
+  "Wheat",
+  "Sesame",
+  "Sulfites",
+]
+
+export const COMMON_DISLIKES = [
+  "Mushrooms",
+  "Onions",
+  "Garlic",
+  "Cilantro",
+  "Spicy food",
+  "Seafood",
+  "Organ meat",
+  "Blue cheese",
+  "Olives",
+  "Coconut",
+]
 export interface UserInfoRequest {
   favoriteCuisine: string
   dislikedIngredients: string[]
@@ -65,47 +109,3 @@ export class UserInfoService {
     return response.json()
   }
 }
-
-export const CUISINE_OPTIONS = [
-  "Italian",
-  "Chinese",
-  "Mexican",
-  "Indian",
-  "Japanese",
-  "Thai",
-  "French",
-  "Mediterranean",
-  "American",
-  "Korean",
-  "Vietnamese",
-  "Greek",
-  "Spanish",
-  "Middle Eastern",
-  "Other",
-]
-
-export const COMMON_ALLERGIES = [
-  "Nuts",
-  "Peanuts",
-  "Shellfish",
-  "Fish",
-  "Eggs",
-  "Dairy",
-  "Soy",
-  "Wheat",
-  "Sesame",
-  "Sulfites",
-]
-
-export const COMMON_DISLIKES = [
-  "Mushrooms",
-  "Onions",
-  "Garlic",
-  "Cilantro",
-  "Spicy food",
-  "Seafood",
-  "Organ meat",
-  "Blue cheese",
-  "Olives",
-  "Coconut",
-]

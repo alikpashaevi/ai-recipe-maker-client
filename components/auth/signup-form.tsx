@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -13,7 +12,6 @@ import { AuthService } from "@/lib/auth"
 import { Loader2, CheckCircle } from "lucide-react"
 
 export function SignupForm() {
-  const [step, setStep] = useState<"signup" | "verify">("signup")
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -24,17 +22,53 @@ export function SignupForm() {
   const [error, setError] = useState("")
   const [success, setSuccess] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [isCodeSent, setIsCodeSent] = useState(false)
+  const [isVerified, setIsVerified] = useState(false)
 
-  const handleSignup = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSendCode = async () => {
     setError("")
+    setSuccess("")
     setIsLoading(true)
-
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match")
+    try {
+      await AuthService.sendVerificationCode(formData.email)
+      setIsCodeSent(true)
+      setSuccess("Verification code sent to your email.")
+    } catch (err) {
+      setError("Failed to send verification code. Please check the email and try again.")
+    } finally {
       setIsLoading(false)
+    }
+  }
+
+  const handleVerifyCode = async () => {
+    setError("")
+    setSuccess("")
+    setIsLoading(true)
+    try {
+      await AuthService.verifyCode(formData.email, verificationCode)
+      setIsVerified(true)
+      setSuccess("Email verified successfully!")
+    } catch (err) {
+      setError("Invalid or expired verification code.")
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!isVerified) {
+      setError("Please verify your email before creating an account.")
       return
     }
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match")
+      return
+    }
+
+    setError("")
+    setSuccess("")
+    setIsLoading(true)
 
     try {
       await AuthService.register({
@@ -42,92 +76,15 @@ export function SignupForm() {
         email: formData.email,
         password: formData.password,
       })
-
-      await AuthService.sendVerificationCode(formData.email)
-      setStep("verify")
-      setSuccess("Verification code sent to your email")
-    } catch (err) {
-      setError("Registration failed. Please try again." + (err instanceof Error ? `: ${err.message}` : ""))
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const handleVerification = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError("")
-    setIsLoading(true)
-
-    try {
-      await AuthService.verifyCode(formData.email, verificationCode)
-      setSuccess("Account verified successfully! Redirecting to setup...")
+      setSuccess("Account created successfully! Redirecting to onboarding...")
       setTimeout(() => {
         window.location.href = "/onboarding"
       }, 2000)
     } catch (err) {
-      setError("Invalid verification code")
+      setError("Registration failed. The username or email might already be taken.")
     } finally {
       setIsLoading(false)
     }
-  }
-
-  const resendCode = async () => {
-    setError("")
-    setIsLoading(true)
-    try {
-      await AuthService.sendVerificationCode(formData.email)
-      setSuccess("Verification code resent")
-    } catch (err) {
-      setError("Failed to resend code")
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  if (step === "verify") {
-    return (
-      <Card className="w-full max-w-md mx-auto">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl text-center">Verify your email</CardTitle>
-          <CardDescription className="text-center">We sent a verification code to {formData.email}</CardDescription>
-        </CardHeader>
-        <form onSubmit={handleVerification}>
-          <CardContent className="space-y-4">
-            {error && (
-              <Alert variant="destructive">
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
-            {success && (
-              <Alert>
-                <CheckCircle className="h-4 w-4" />
-                <AlertDescription>{success}</AlertDescription>
-              </Alert>
-            )}
-            <div className="space-y-2">
-              <Label htmlFor="code">Verification Code</Label>
-              <Input
-                id="code"
-                type="text"
-                placeholder="Enter 6-digit code"
-                value={verificationCode}
-                onChange={(e) => setVerificationCode(e.target.value)}
-                required
-              />
-            </div>
-          </CardContent>
-          <CardFooter className="flex flex-col space-y-4">
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Verify Account
-            </Button>
-            <Button type="button" variant="ghost" onClick={resendCode} disabled={isLoading}>
-              Resend Code
-            </Button>
-          </CardFooter>
-        </form>
-      </Card>
-    )
   }
 
   return (
@@ -136,11 +93,17 @@ export function SignupForm() {
         <CardTitle className="text-2xl text-center">Create an account</CardTitle>
         <CardDescription className="text-center">Enter your details to get started with RecipeAI</CardDescription>
       </CardHeader>
-      <form onSubmit={handleSignup}>
+      <form onSubmit={handleRegister}>
         <CardContent className="space-y-4">
           {error && (
             <Alert variant="destructive">
               <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+          {success && (
+            <Alert>
+              <CheckCircle className="h-4 w-4" />
+              <AlertDescription>{success}</AlertDescription>
             </Alert>
           )}
           <div className="space-y-2">
@@ -152,19 +115,48 @@ export function SignupForm() {
               value={formData.username}
               onChange={(e) => setFormData({ ...formData, username: e.target.value })}
               required
+              disabled={isVerified}
             />
           </div>
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="Enter your email"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              required
-            />
+            <div className="flex space-x-2">
+              <Input
+                id="email"
+                type="email"
+                placeholder="Enter your email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                required
+                disabled={isCodeSent}
+              />
+              <Button type="button" onClick={handleSendCode} disabled={isLoading || isCodeSent || !formData.email}>
+                {isLoading && !isCodeSent ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                {isCodeSent ? "Sent" : "Send Code"}
+              </Button>
+            </div>
           </div>
+
+          {isCodeSent && !isVerified && (
+            <div className="space-y-2">
+              <Label htmlFor="code">Verification Code</Label>
+              <div className="flex space-x-2">
+                <Input
+                  id="code"
+                  type="text"
+                  placeholder="Enter 6-digit code"
+                  value={verificationCode}
+                  onChange={(e) => setVerificationCode(e.target.value)}
+                  required
+                />
+                <Button type="button" onClick={handleVerifyCode} disabled={isLoading || !verificationCode}>
+                  {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                  Verify
+                </Button>
+              </div>
+            </div>
+          )}
+
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
             <Input
@@ -189,8 +181,8 @@ export function SignupForm() {
           </div>
         </CardContent>
         <CardFooter className="flex flex-col space-y-4">
-          <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          <Button type="submit" className="w-full" disabled={isLoading || !isVerified}>
+            {isLoading && isVerified && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Create Account
           </Button>
           <p className="text-sm text-muted-foreground text-center">

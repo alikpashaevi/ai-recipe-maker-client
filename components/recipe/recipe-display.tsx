@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import type { NutritionAndRecipe } from "@/lib/recipe"
 import { AuthService } from "@/lib/auth"
+import { FavoritesService } from "@/lib/favorites"
 import { Heart, Clock, Users, Loader2, RefreshCw, CheckCircle } from "lucide-react"
 
 interface RecipeDisplayProps {
@@ -29,9 +30,7 @@ export function RecipeDisplay({ recipe, onNewRecipe }: RecipeDisplayProps) {
         throw new Error("Not authenticated")
       }
 
-      // Note: In a real implementation, you'd need the recipe ID from the API
-      // For now, we'll simulate this since the API doesn't return recipe IDs in the generate endpoint
-      await new Promise((resolve) => setTimeout(resolve, 1000)) // Simulate API call
+      await FavoritesService.add(recipe.recipeResponse.recipeId, token)
       setFavoriteSuccess(true)
       setTimeout(() => setFavoriteSuccess(false), 3000)
     } catch (err) {

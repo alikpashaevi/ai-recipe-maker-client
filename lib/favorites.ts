@@ -34,4 +34,21 @@ export class FavoritesService {
       throw new Error("Failed to remove from favorites");
     }
   }
+
+  static async add(recipeId: number, token: string): Promise<void> {
+    console.log("Adding to favorites", recipeId);
+    const response = await fetch(`${API_BASE_URL}/user/favorites/${recipeId}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+    if (!response.ok) {
+      throw new Error("Failed to add to favorites");
+    }
+  }
+
+  
 }
