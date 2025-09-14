@@ -8,9 +8,7 @@ export function ConditionalNav() {
   const { isAuthenticated, isLoading } = useAuth()
 
   if (isLoading) {
-    // You might want a placeholder or skeleton loader here
-    // For now, we can render the logged-out nav or nothing to prevent layout shift
-    return <Navigation />
+    return null
   }
 
   return isAuthenticated ? <DashboardNav /> : <Navigation />

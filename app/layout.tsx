@@ -7,6 +7,8 @@ import { AuthProvider } from "@/contexts/auth-context"
 import { Suspense } from "react"
 import "./globals.css"
 
+import { AppLayout } from "@/components/app-layout";
+
 export const metadata: Metadata = {
   title: "RecipeAI - AI-Powered Recipe Maker",
   description: "Create amazing recipes with AI magic. Transform your ingredients into delicious meals.",
@@ -22,7 +24,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
         <Suspense fallback={<div>Loading...</div>}>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <AppLayout>
+              {children}
+            </AppLayout>
+          </AuthProvider>
         </Suspense>
         <Analytics />
       </body>
