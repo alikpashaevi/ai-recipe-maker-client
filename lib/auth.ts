@@ -110,4 +110,19 @@ export class AuthService {
   static isAuthenticated(): boolean {
     return !!this.getToken()
   }
+
+  static async getProfile(token: string): Promise<User> {
+    const response = await fetch(`${API_BASE_URL}/user/profile`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch user profile")
+    }
+
+    return response.json()
+  }
 }

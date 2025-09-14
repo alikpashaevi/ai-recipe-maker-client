@@ -19,22 +19,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Check if user is authenticated on mount
-    const token = AuthService.getToken()
-    if (token) {
-      // In a real app, you'd validate the token and fetch user data
-      // For now, we'll just set authenticated state
-      setUser({ id: 1, username: "user", email: "user@example.com", roles: [] })
+    const validateUser = async () => {
+      const token = AuthService.getToken()
+      if (token) {
+        try {
+          // In a real app, you'd validate the token with your backend
+          // For this example, we'll simulate fetching user data
+          const userData = await AuthService.getProfile(token)
+          setUser(userData)
+        } catch (error) {
+          // Token is invalid or expired
+          AuthService.removeToken()
+          setUser(null)
+        }
+      }
+      setIsLoading(false)
     }
-    setIsLoading(false)
+
+    validateUser()
   }, [])
 
   const login = async (username: string, password: string) => {
     try {
       const response = await AuthService.login({ username, password })
+      console.log("Login successful, response:", response)
       AuthService.setToken(response.accessToken)
-      // In a real app, decode JWT to get user info
-      setUser({ id: 1, username, email: "user@example.com", roles: [] })
+      const userData = await AuthService.getProfile(response.accessToken)
+      setUser(userData)
+      console.log("Login successful, user data:", userData)
     } catch (error) {
       throw error
     }

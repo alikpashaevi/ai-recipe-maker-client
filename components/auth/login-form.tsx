@@ -27,6 +27,7 @@ export function LoginForm() {
     setIsLoading(true)
 
     try {
+      console.log("Attempting login with:", { username, password })
       await login(username, password)
       // Redirect to a specific dashboard based on user role or other criteria
       router.push("/dashboard")
