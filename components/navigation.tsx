@@ -23,9 +23,7 @@ export function Navigation() {
             <Link href="/about" className="text-foreground hover:text-primary transition-colors">
               About Us
             </Link>
-            <Link href="/features" className="text-foreground hover:text-primary transition-colors">
-              Features
-            </Link>
+            
             <Link href="/contact" className="text-foreground hover:text-primary transition-colors">
               Contact
             </Link>
@@ -60,13 +58,7 @@ export function Navigation() {
               >
                 About Us
               </Link>
-              <Link
-                href="/features"
-                className="block px-3 py-2 text-foreground hover:text-primary transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Features
-              </Link>
+              
               <Link
                 href="/contact"
                 className="block px-3 py-2 text-foreground hover:text-primary transition-colors"

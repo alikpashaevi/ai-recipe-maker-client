@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/contexts/auth-context"
-import { ChefHat, Home, Heart, History, User, LogOut } from "lucide-react"
+import { ChefHat, Home, Heart, History, User, LogOut, Info, Mail } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const navigation = [
@@ -12,6 +12,8 @@ const navigation = [
   { name: "Favorites", href: "/favorites", icon: Heart },
   { name: "History", href: "/history", icon: History },
   { name: "Profile", href: "/profile", icon: User },
+  { name: "About", href: "/about", icon: Info },
+  { name: "Contact", href: "/contact", icon: Mail },
 ]
 
 export function DashboardNav() {
