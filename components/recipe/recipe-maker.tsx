@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { IngredientInput } from "./ingredient-input"
+import SearchBar from "./search-bar";
 import { RecipeDisplay } from "./recipe-display"
 import { type NutritionAndRecipe, RecipeService } from "@/lib/recipe"
 import { AuthService } from "@/lib/auth"
@@ -50,7 +50,7 @@ export function RecipeMaker() {
         </Alert>
       )}
 
-      <IngredientInput
+      <SearchBar
         ingredients={ingredients}
         onIngredientsChange={setIngredients}
         onGenerateRecipe={generateRecipe}
