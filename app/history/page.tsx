@@ -11,7 +11,7 @@ export default function HistoryPage() {
           <div className="max-w-6xl mx-auto">
             <div className="mb-8">
               <h1 className="text-3xl font-bold text-foreground mb-2">Recipe History</h1>
-              <p className="text-muted-foreground">View all the recipes you've generated and explored in the past.</p>
+              <p className="text-muted-foreground">View all the recipes you&apos;ve generated and explored in the past.</p>
             </div>
             <HistoryList />
           </div>

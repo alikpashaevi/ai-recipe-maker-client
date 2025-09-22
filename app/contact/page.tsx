@@ -17,7 +17,7 @@ export default function ContactPage() {
         </CardHeader>
         <CardContent className="space-y-6">
             <p className="text-center text-muted-foreground">
-                Have a question, suggestion, or just want to say hello? We'd love to hear from you! Fill out the form below and we'll get back to you as soon as possible.
+                Have a question, suggestion, or just want to say hello? We&apos;d love to hear from you! Fill out the form below and we&apos;ll get back to you as soon as possible.
             </p>
           <form className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

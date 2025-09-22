@@ -42,6 +42,56 @@ export interface Recipe {
   }
 }
 
+export interface SearchResultRecipe {
+  id: number;
+  name: string;
+  ingredients: string[];
+  instructions: string[];
+  normalizedIngredients: {
+    id: number;
+    name: string;
+  }[];
+  estimatedTime: number;
+  servings: number;
+  nutrition: {
+    vegan: boolean;
+    glutenFree: boolean;
+    dairyFree: boolean;
+    vegetarian: boolean;
+  } | null;
+}
+
+export interface Pageable {
+  pageNumber: number;
+  pageSize: number;
+  sort: {
+    empty: boolean;
+    sorted: boolean;
+    unsorted: boolean;
+  };
+  offset: number;
+  paged: boolean;
+  unpaged: boolean;
+}
+
+export interface SearchResponse {
+  content: SearchResultRecipe[];
+  pageable: Pageable;
+  last: boolean;
+  totalElements: number;
+  totalPages: number;
+  size: number;
+  number: number;
+  sort: {
+    empty: boolean;
+    sorted: boolean;
+    unsorted: boolean;
+  };
+  first: boolean;
+  numberOfElements: number;
+  empty: boolean;
+}
+
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 
 export class RecipeService {
@@ -78,5 +128,23 @@ export class RecipeService {
     return response.json()
   }
 
-  
+  static async searchRecipes(ingredients: string[], page: number, pageSize: number, token: string): Promise<SearchResponse> {
+    const params = new URLSearchParams()
+    ingredients.forEach((ingredient) => params.append("ingredients", ingredient))
+    params.append("page", page.toString())
+    params.append("pageSize", pageSize.toString())
+
+    const response = await fetch(`${API_BASE_URL}/chat/search?${params.toString()}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error("Failed to search recipes")
+    }
+
+    return response.json()
+  }
 }

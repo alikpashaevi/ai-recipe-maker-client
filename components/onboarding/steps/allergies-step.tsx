@@ -38,7 +38,7 @@ export function AllergiesStep({ formData, updateFormData }: AllergiesStepProps) 
   return (
     <div className="space-y-6">
       <p className="text-sm text-muted-foreground">
-        Select any food allergies you have. This is crucial for your safety - we'll make sure to avoid these
+        Select any food allergies you have. This is crucial for your safety - we&apos;ll make sure to avoid these
         ingredients.
       </p>
 

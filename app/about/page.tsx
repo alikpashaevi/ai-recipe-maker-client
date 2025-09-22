@@ -19,7 +19,7 @@ export default function AboutPage() {
               Founded in 2025, our team of food lovers, designers, and AI experts set out to solve a common problem: what to make with the ingredients you already have. We were tired of wasting food and spending hours searching for recipes online, only to find they required a trip to the grocery store.
             </p>
             <p>
-              Our platform uses advanced AI algorithms to generate unique and delicious recipes based on the ingredients you provide. Whether you're a seasoned chef looking for inspiration or a novice cook just starting out, AI Recipe Maker is here to help you create amazing meals with confidence.
+              Our platform uses advanced AI algorithms to generate unique and delicious recipes based on the ingredients you provide. Whether you&apos;re a seasoned chef looking for inspiration or a novice cook just starting out, AI Recipe Maker is here to help you create amazing meals with confidence.
             </p>
             <p>
               We believe that cooking should be a joyful and stress-free experience. Join our community and discover a new world of culinary possibilities.

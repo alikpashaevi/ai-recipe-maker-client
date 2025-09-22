@@ -29,7 +29,7 @@ export function DietaryRestrictionsStep({ formData, updateFormData }: DietaryRes
             onCheckedChange={(checked) => handleCheckboxChange("vegetarian", checked as boolean)}
           />
           <Label htmlFor="vegetarian" className="cursor-pointer">
-            Vegetarian - I don't eat meat, poultry, or fish
+            Vegetarian - I don&apos;t eat meat, poultry, or fish
           </Label>
         </div>
 
@@ -40,7 +40,7 @@ export function DietaryRestrictionsStep({ formData, updateFormData }: DietaryRes
             onCheckedChange={(checked) => handleCheckboxChange("vegan", checked as boolean)}
           />
           <Label htmlFor="vegan" className="cursor-pointer">
-            Vegan - I don't eat any animal products
+            Vegan - I don&apos;t eat any animal products
           </Label>
         </div>
 

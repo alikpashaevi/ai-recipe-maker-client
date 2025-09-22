@@ -118,7 +118,7 @@ export function OnboardingFlow() {
             <span className="font-bold text-2xl text-foreground">RecipeAI</span>
           </div>
           <h1 className="text-3xl font-bold text-foreground mb-2">Welcome, {user?.username}!</h1>
-          <p className="text-muted-foreground">Let's personalize your cooking experience</p>
+          <p className="text-muted-foreground">Let&apos;s personalize your cooking experience</p>
         </div>
 
         {/* Progress */}
