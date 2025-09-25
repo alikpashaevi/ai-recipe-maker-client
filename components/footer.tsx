@@ -70,7 +70,7 @@ export function Footer() {
 
         {/* Bottom Section */}
         <div className="border-t border-border mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center">
-          <p className="text-muted-foreground text-sm">© 2024 RecipeAI. All rights reserved.</p>
+          <p className="text-muted-foreground text-sm">© Alikhan Pashaevi. All rights reserved.</p>
 
           {/* Social Links */}
           <div className="flex space-x-4 mt-4 sm:mt-0">

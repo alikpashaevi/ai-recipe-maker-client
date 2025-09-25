@@ -47,6 +47,7 @@ export default function SearchPage() {
             <p className="text-muted-foreground">
               Find recipes based on the ingredients you have.
             </p>
+            <h3 className="text-16 font-semibold">NOTE: the recipes get added by the community by generating with AI.</h3>
           </div>
           <SearchInput
             ingredients={ingredients}
