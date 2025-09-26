@@ -49,7 +49,7 @@ export function IngredientInput({
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Sparkles className="h-5 w-5 text-primary" />
-          What's in your kitchen?
+          What&apos;s in your kitchen?
         </CardTitle>
         <CardDescription>
           Add the ingredients you have available, and our AI will create a delicious recipe for you.

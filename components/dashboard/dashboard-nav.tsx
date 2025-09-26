@@ -51,7 +51,9 @@ export function DashboardNav() {
 
           {/* User Menu */}
           <div className="flex items-center space-x-4">
-            <span className="text-sm text-muted-foreground hidden sm:block">Welcome, {user?.username}</span>
+                        <span className="text-sm text-muted-foreground hidden sm:block">
+              Welcome, {user?.username && user.username.length > 10 ? `${user.username.substring(0, 10)}...` : user?.username}
+            </span>
             <Button variant="ghost" size="sm" onClick={logout}>
               <LogOut className="h-4 w-4 mr-2" />
               Logout

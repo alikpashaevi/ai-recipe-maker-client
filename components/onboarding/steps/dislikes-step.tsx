@@ -38,7 +38,7 @@ export function DislikesStep({ formData, updateFormData }: DislikesStepProps) {
   return (
     <div className="space-y-6">
       <p className="text-sm text-muted-foreground">
-        Tell us about ingredients you don't enjoy. We'll try to avoid these in your recipes (this is optional).
+        Tell us about ingredients you don&apos;t enjoy. We&apos;ll try to avoid these in your recipes (this is optional).
       </p>
 
       {/* Common Dislikes */}

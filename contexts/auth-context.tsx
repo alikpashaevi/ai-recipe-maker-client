@@ -10,6 +10,7 @@ interface AuthContextType {
   login: (username: string, password: string) => Promise<void>
   logout: () => void
   setUser: (user: User | null) => void
+  loginWithToken: (token: string) => void
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -52,6 +53,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  const loginWithToken = (token: string) => {
+    AuthService.setToken(token)
+    AuthService.getProfile(token).then(setUser)
+  }
+
   const logout = () => {
     AuthService.removeToken()
     setUser(null)
@@ -64,6 +70,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     login,
     logout,
     setUser,
+    loginWithToken,
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

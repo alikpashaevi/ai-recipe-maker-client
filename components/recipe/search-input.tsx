@@ -48,7 +48,7 @@ export function SearchInput({
       <CardHeader>
         <CardTitle className='flex items-center gap-2'>
           <Search className='h-5 w-5 text-primary' />
-          What's in your kitchen?
+          What&apos;s in your kitchen?
         </CardTitle>
         <CardDescription>
           Add the ingredients you have available to search for recipes.

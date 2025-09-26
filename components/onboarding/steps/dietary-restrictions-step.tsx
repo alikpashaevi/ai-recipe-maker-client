@@ -58,7 +58,7 @@ export function DietaryRestrictionsStep({ formData, updateFormData }: DietaryRes
 
       {formData.vegan && formData.vegetarian && (
         <p className="text-sm text-muted-foreground bg-muted p-3 rounded-md">
-          Note: Vegan diet includes vegetarian restrictions, so we'll focus on vegan recipes for you.
+          Note: Vegan diet includes vegetarian restrictions, so we&apos;ll focus on vegan recipes for you.
         </p>
       )}
     </div>

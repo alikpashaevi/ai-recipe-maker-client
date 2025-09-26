@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { AuthService } from "@/lib/auth"
 import { Loader2, CheckCircle } from "lucide-react"
+import { GoogleSignInButton } from "./google-signin-button"
 
 export function SignupForm() {
   const [formData, setFormData] = useState({
@@ -185,6 +186,17 @@ export function SignupForm() {
             {isLoading && isVerified && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Create Account
           </Button>
+          <div className="relative w-full flex justify-center items-center my-2">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">
+                Or continue with
+              </span>
+            </div>
+          </div>
+          <GoogleSignInButton />
           <p className="text-sm text-muted-foreground text-center">
             Already have an account?{" "}
             <Link href="/login" className="text-primary hover:underline">
