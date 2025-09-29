@@ -1,5 +1,5 @@
 import { ProtectedRoute } from "@/components/auth/protected-route"
-import { DashboardNav } from "@/components/dashboard/dashboard-nav"
+import { ConditionalNav } from "@/components/conditional-nav";
 import { ProfileHeader } from "@/components/profile/profile-header"
 import { ProfileTabs } from "@/components/profile/profile-tabs"
 
@@ -7,7 +7,7 @@ export default function ProfilePage() {
   return (
     <ProtectedRoute>
       <div className="min-h-screen bg-background">
-        <DashboardNav />
+        <ConditionalNav />
         <main className="container mx-auto px-4 py-8">
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="mb-8">

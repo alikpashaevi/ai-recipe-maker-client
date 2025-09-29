@@ -1,12 +1,12 @@
 import { ProtectedRoute } from "@/components/auth/protected-route"
-import { DashboardNav } from "@/components/dashboard/dashboard-nav"
+import { ConditionalNav } from "@/components/conditional-nav";
 import { HistoryList } from "@/components/history/history-list"
 
 export default function HistoryPage() {
   return (
     <ProtectedRoute>
       <div className="min-h-screen bg-background">
-        <DashboardNav />
+        <ConditionalNav />
         <main className="container mx-auto px-4 py-8">
           <div className="max-w-6xl mx-auto">
             <div className="mb-8">

@@ -68,6 +68,7 @@ export function DietaryPreferences() {
       setSuccess("Dietary preferences updated successfully!")
       setTimeout(() => setSuccess(""), 3000)
     } catch (err) {
+      console.log(err)
       setError("Failed to update dietary preferences. Please try again.")
     } finally {
       setIsSaving(false)

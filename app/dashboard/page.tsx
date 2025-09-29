@@ -1,6 +1,6 @@
 'use client'
 
-import { DashboardNav } from "@/components/dashboard/dashboard-nav"
+import { ConditionalNav } from "@/components/conditional-nav";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Sparkles, Search } from "lucide-react"
 import Link from "next/link"
@@ -8,7 +8,7 @@ import Link from "next/link"
 export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-background">
-      <DashboardNav />
+      <ConditionalNav />
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <div className="mb-8">

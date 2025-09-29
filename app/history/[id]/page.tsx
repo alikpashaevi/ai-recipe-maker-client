@@ -5,7 +5,7 @@ import { useParams, useSearchParams } from "next/navigation"
 import { AuthService } from "@/lib/auth";
 import { useAuth } from "@/contexts/auth-context"
 import { HistoryService, Recipe } from "@/lib/history"
-import { DashboardNav } from "@/components/dashboard/dashboard-nav"
+import { ConditionalNav } from "@/components/conditional-nav";
 import { RecipeDetails } from "@/components/history/recipe-details"
 import { Card, CardContent } from "@/components/ui/card"
 import { Loader2 } from "lucide-react"
@@ -39,7 +39,7 @@ export default function RecipePage({ params, searchParams }: { params: { id: str
 
   return (
     <div className="min-h-screen bg-background">
-      <DashboardNav />
+      <ConditionalNav />
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           {loading && 

@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { SearchInput } from "@/components/recipe/search-input"
-import { DashboardNav } from "@/components/dashboard/dashboard-nav"
+import { ConditionalNav } from "@/components/conditional-nav";
 import { RecipeService, type SearchResponse } from "@/lib/recipe"
 import { AuthService } from "@/lib/auth"
 import { SearchResults } from "@/components/recipe/search-results"
@@ -39,7 +39,7 @@ export default function SearchPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <DashboardNav />
+      <ConditionalNav />
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <div className="mb-8">
