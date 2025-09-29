@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { useParams } from "next/navigation"
+import { useParams, useSearchParams } from "next/navigation"
 import { AuthService } from "@/lib/auth";
 import { useAuth } from "@/contexts/auth-context"
 import { HistoryService, Recipe } from "@/lib/history"
@@ -10,8 +10,10 @@ import { RecipeDetails } from "@/components/history/recipe-details"
 import { Card, CardContent } from "@/components/ui/card"
 import { Loader2 } from "lucide-react"
 
-export default function RecipePage() {
+export default function RecipePage({ params, searchParams }: { params: { id: string }, searchParams: { [key: string]: string | string[] | undefined } }) {
   const { id } = useParams()
+  const searchParamsforHistory = useSearchParams()
+  const from = searchParamsforHistory.get('from')
   const { isAuthenticated } = useAuth()
   const [recipe, setRecipe] = useState<Recipe | null>(null)
   const [loading, setLoading] = useState(true)
@@ -51,7 +53,7 @@ export default function RecipePage() {
             </Card>
           }
           {error && <p className="text-red-500">{error}</p>}
-          {recipe && <RecipeDetails recipe={recipe} />}
+          {recipe && <RecipeDetails recipe={recipe} from={from} />}
         </div>
       </main>
     </div>

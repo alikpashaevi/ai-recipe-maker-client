@@ -38,7 +38,7 @@ export function RecipeCard({ recipe, onRemove }: RecipeCardProps) {
   }
 
   return (
-    <Link href={`/history/${recipe.recipeId}`} className="block hover:shadow-md transition-shadow rounded-lg">
+    <Link href={`/history/${recipe.recipeId}?from=favorites`} className="block hover:shadow-md transition-shadow rounded-lg">
       <Card>
         <CardHeader>
           <div className="flex justify-between items-start">

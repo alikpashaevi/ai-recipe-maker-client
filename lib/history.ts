@@ -23,6 +23,7 @@ export interface NutritionData {
 
 export interface Recipe {
   recipeResponse: {
+    recipeId: number;
     dish_name: string;
     ingredients: string[];
     instructions: string[];
