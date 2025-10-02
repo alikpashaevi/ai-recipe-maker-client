@@ -1,6 +1,7 @@
 "use client"
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { type User, AuthService } from "@/lib/auth"
 
 interface AuthContextType {
@@ -18,7 +19,8 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-
+ const router = useRouter()
+ 
   useEffect(() => {
     const validateUser = async () => {
       const token = AuthService.getToken()
@@ -61,6 +63,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = () => {
     AuthService.removeToken()
     setUser(null)
+    router.push("/login")
   }
 
   const value = {

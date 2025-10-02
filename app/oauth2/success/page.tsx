@@ -15,7 +15,7 @@ export default function OAuth2SuccessPage() {
 
     if (token) {
       loginWithToken(token)
-      router.push("/dashboard")
+      // router.push("/dashboard")
     } else {
       // Handle the case where the token is not present
       router.push("/login?error=authentication-failed")

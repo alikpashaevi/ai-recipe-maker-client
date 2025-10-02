@@ -1,70 +1,28 @@
-import { AuthService, type User } from "./auth";
+import { AuthService } from "./auth";
 
-export const CUISINE_OPTIONS = [
-  "Italian",
-  "Chinese",
-  "Mexican",
-  "Indian",
-  "Japanese",
-  "Thai",
-  "French",
-  "Mediterranean",
-  "American",
-  "Korean",
-  "Vietnamese",
-  "Greek",
-  "Spanish",
-  "Middle Eastern",
-  "Other",
-]
-
-export const COMMON_ALLERGIES = [
-  "Nuts",
-  "Peanuts",
-  "Shellfish",
-  "Fish",
-  "Eggs",
-  "Dairy",
-  "Soy",
-  "Wheat",
-  "Sesame",
-  "Sulfites",
-]
-
-export const COMMON_DISLIKES = [
-  "Mushrooms",
-  "Onions",
-  "Garlic",
-  "Cilantro",
-  "Spicy food",
-  "Seafood",
-  "Organ meat",
-  "Blue cheese",
-  "Olives",
-  "Coconut",
-]
 export interface UserInfoRequest {
-  favoriteCuisine: string
-  dislikedIngredients: string[]
-  allergies: string[]
-  vegetarian: boolean
-  vegan: boolean
-  glutenFree: boolean
+  favoriteCuisine: string;
+  dislikedIngredients: string[];
+  allergies: string[];
+  dietaryRestrictions: string[];
 }
 
 export interface UserInfo extends UserInfoRequest {
-  id: number
+  id: number;
   appUser: {
-    id: number
-    username: string
-    email: string
-  }
+    id: number;
+    username: string;
+    email: string;
+  };
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export class UserInfoService {
-  static async createUserInfo(userInfo: UserInfoRequest, token: string): Promise<void> {
+  static async createUserInfo(
+    userInfo: UserInfoRequest,
+    token: string
+  ): Promise<void> {
     const response = await fetch(`${API_BASE_URL}/user-info`, {
       method: "POST",
       headers: {
@@ -72,14 +30,17 @@ export class UserInfoService {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(userInfo),
-    })
+    });
 
     if (!response.ok) {
-      throw new Error("Failed to create user info")
+      throw new Error("Failed to create user info");
     }
   }
 
-  static async updateUserInfo(userInfo: UserInfoRequest, token: string): Promise<void> {
+  static async updateUserInfo(
+    userInfo: UserInfoRequest,
+    token: string
+  ): Promise<void> {
     const response = await fetch(`${API_BASE_URL}/user-info`, {
       method: "PUT",
       headers: {
@@ -87,10 +48,10 @@ export class UserInfoService {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(userInfo),
-    })
+    });
 
     if (!response.ok) {
-      throw new Error("Failed to update user info")
+      throw new Error("Failed to update user info");
     }
   }
 
@@ -100,12 +61,33 @@ export class UserInfoService {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    })
+    });
 
     if (!response.ok) {
-      throw new Error("Failed to get user info")
+      throw new Error("Failed to get user info");
     }
 
-    return response.json()
+    return response.json();
   }
 }
+
+export const saveUserInfo = async (userInfo: UserInfoRequest) => {
+  const token = AuthService.getToken();
+  if (!token) {
+    throw new Error("No auth token found");
+  }
+  await UserInfoService.createUserInfo(userInfo, token);
+};
+
+export const getUserInfo = async () => {
+  const token = AuthService.getToken();
+  if (!token) {
+    return null;
+  }
+  try {
+    return await UserInfoService.getUserInfo(token);
+  } catch (error) {
+    console.error("Failed to get user info:", error);
+    return null;
+  }
+};
