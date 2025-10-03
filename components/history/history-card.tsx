@@ -24,7 +24,7 @@ export function HistoryCard({ historyItem }: HistoryCardProps) {
   }
 
   return (
-    <Link href={`/history/${historyItem.recipeId}`}>
+    <Link href={`/history/${historyItem.recipeId}?from=history`}>
       <Card className="hover:shadow-md transition-shadow bg-green-100">
         <CardHeader className="pb-3">
           <div className="flex justify-between items-start">

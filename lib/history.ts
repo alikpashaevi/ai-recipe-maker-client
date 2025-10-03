@@ -63,4 +63,33 @@ export class HistoryService {
 
     return response.json()
   }
+
+  static async addRecipeToHistory(id: string, token: string): Promise<void> {
+    const response = await fetch(`${API_BASE_URL}/user-history`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ recipeId: id }),
+    })
+
+    if (!response.ok) {
+      throw new Error("Failed to add recipe to history")
+    }
+  }
+
+  static async addRecipeToHistoryWithId(id: number, token: string): Promise<void> {
+    const response = await fetch(`${API_BASE_URL}/user-history/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    })
+
+    if (!response.ok) {
+      throw new Error("Failed to add recipe to history")
+    }
+  }
 }

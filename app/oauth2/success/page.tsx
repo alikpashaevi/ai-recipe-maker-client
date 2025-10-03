@@ -16,7 +16,7 @@ useEffect(() => {
   if (token) {
     (async () => {
       try {
-        loginWithToken(token)   // wait until user is fetched and set
+        await loginWithToken(token)   // wait until user is fetched and set
         router.replace("/dashboard")  // replace avoids stacking history
       } catch (err) {
         console.error("Login failed", err)

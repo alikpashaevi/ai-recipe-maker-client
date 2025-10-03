@@ -11,7 +11,7 @@ interface SearchRecipeCardProps {
 
 export function SearchRecipeCard({ recipe }: SearchRecipeCardProps) {
   return (
-    <Link href={`/history/${recipe.id}`} className="block hover:shadow-md transition-shadow rounded-lg">
+    <Link href={`/history/${recipe.id}?from=search`} className="block hover:shadow-md transition-shadow rounded-lg">
       <Card className="bg-gray-100">
         <CardHeader>
           <CardTitle className="text-lg text-balance text-black">{recipe.name}</CardTitle>

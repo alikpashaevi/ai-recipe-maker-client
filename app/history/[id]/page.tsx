@@ -20,6 +20,20 @@ export default function RecipePage({ params, searchParams }: { params: { id: str
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    if (id && isAuthenticated && from) {
+      const token = AuthService.getToken()
+      if (token) {
+        const recipeId = Number(Array.isArray(id) ? id[0] : id)
+        
+        console.log("Adding recipe to history:", recipeId)
+        HistoryService.addRecipeToHistoryWithId(recipeId, token).catch(err => {
+          console.error("Failed to add recipe to history:", err)
+        })
+      }
+    }
+  }, [])
+
+  useEffect(() => {
     if (id && isAuthenticated) {
       const token = AuthService.getToken()
       if (token) {
