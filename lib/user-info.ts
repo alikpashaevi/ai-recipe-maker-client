@@ -106,6 +106,10 @@ export class UserInfoService {
       throw new Error("Failed to get user info")
     }
 
+    if (!response.body === null) {
+      return null as any
+    }
+
     return response.json()
   }
 }

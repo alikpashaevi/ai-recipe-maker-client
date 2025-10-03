@@ -25,10 +25,10 @@ export function HistoryCard({ historyItem }: HistoryCardProps) {
 
   return (
     <Link href={`/history/${historyItem.recipeId}`}>
-      <Card className="hover:shadow-md transition-shadow">
+      <Card className="hover:shadow-md transition-shadow bg-green-100">
         <CardHeader className="pb-3">
           <div className="flex justify-between items-start">
-            <CardTitle className="text-lg text-balance">{historyItem.dishName}</CardTitle>
+            <CardTitle className="text-lg text-balance text-black">{historyItem.dishName}</CardTitle>
             <Badge variant="outline" className="flex items-center gap-1 text-xs">
               <Calendar className="h-3 w-3" />
               {getRelativeTime()}

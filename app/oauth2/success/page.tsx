@@ -10,17 +10,24 @@ export default function OAuth2SuccessPage() {
   const searchParams = useSearchParams()
   const { loginWithToken } = useAuth()
 
-  useEffect(() => {
-    const token = searchParams.get("token")
+useEffect(() => {
+  const token = searchParams.get("token")
 
-    if (token) {
-      loginWithToken(token)
-      router.push("/dashboard")
-    } else {
-      // Handle the case where the token is not present
-      router.push("/login?error=authentication-failed")
-    }
-  }, [router, searchParams, loginWithToken])
+  if (token) {
+    (async () => {
+      try {
+        loginWithToken(token)   // wait until user is fetched and set
+        router.replace("/dashboard")  // replace avoids stacking history
+      } catch (err) {
+        console.error("Login failed", err)
+        router.replace("/login?error=authentication-failed")
+      }
+    })()
+  } else {
+    router.replace("/login?error=authentication-failed")
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [])
 
   return <FullScreenLoader />
 }

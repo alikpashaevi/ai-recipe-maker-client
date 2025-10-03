@@ -53,9 +53,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  const loginWithToken = (token: string) => {
+  const loginWithToken = async (token: string) => {
     AuthService.setToken(token)
-    AuthService.getProfile(token).then(setUser)
+    const userData = await AuthService.getProfile(token)
+    setUser(userData)
   }
 
   const logout = () => {

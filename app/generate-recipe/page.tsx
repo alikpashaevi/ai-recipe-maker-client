@@ -10,12 +10,14 @@ export default function DashboardPage() {
         <main className="container mx-auto px-4 py-8">
           <div className="max-w-4xl mx-auto">
             <div className="mb-8">
-              <h1 className="text-3xl font-bold text-foreground mb-2">AI Recipe Maker</h1>
-              <p className="text-muted-foreground">
+              <h1 className="text-3xl font-bold text-black mb-2">AI Recipe Maker</h1>
+              <p className="text-black">
                 Transform your available ingredients into delicious, personalized recipes with the power of AI.
               </p>
             </div>
-            <RecipeMaker />
+            <div className="bg-gray-100 p-6 rounded-lg">
+              <RecipeMaker />
+            </div>
           </div>
         </main>
       </div>

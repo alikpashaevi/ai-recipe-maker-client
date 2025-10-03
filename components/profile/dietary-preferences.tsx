@@ -36,14 +36,25 @@ export function DietaryPreferences() {
       if (!token) throw new Error("Not authenticated")
 
       const info = await UserInfoService.getUserInfo(token)
-      setUserInfo({
-        favoriteCuisine: info.favoriteCuisine,
-        dislikedIngredients: info.dislikedIngredients,
-        allergies: info.allergies,
-        vegetarian: info.vegetarian,
-        vegan: info.vegan,
-        glutenFree: info.glutenFree,
-      })
+      if (info === null) {
+        setUserInfo({
+          favoriteCuisine: "",
+          dislikedIngredients: [],
+          allergies: [],
+          vegetarian: false,
+          vegan: false,
+          glutenFree: false,
+        })
+      } else {
+        setUserInfo({
+          favoriteCuisine: info.favoriteCuisine,
+          dislikedIngredients: info.dislikedIngredients,
+          allergies: info.allergies,
+          vegetarian: info.vegetarian,
+          vegan: info.vegan,
+          glutenFree: info.glutenFree,
+        })
+      }
     } catch (err) {
       setError("Failed to load dietary preferences")
     } finally {

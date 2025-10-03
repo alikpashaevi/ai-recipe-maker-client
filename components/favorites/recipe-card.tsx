@@ -39,10 +39,10 @@ export function RecipeCard({ recipe, onRemove }: RecipeCardProps) {
 
   return (
     <Link href={`/history/${recipe.recipeId}?from=favorites`} className="block hover:shadow-md transition-shadow rounded-lg">
-      <Card>
+      <Card className="bg-blue-100">
         <CardHeader>
           <div className="flex justify-between items-start">
-            <CardTitle className="text-lg text-balance">{recipe.dishName}</CardTitle>
+            <CardTitle className="text-lg text-balance text-black">{recipe.dishName}</CardTitle>
             <Button
               variant="ghost"
               size="sm"

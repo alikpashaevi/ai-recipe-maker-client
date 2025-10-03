@@ -11,13 +11,15 @@ export default function ProfilePage() {
         <main className="container mx-auto px-4 py-8">
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="mb-8">
-              <h1 className="text-3xl font-bold text-foreground mb-2">Profile Settings</h1>
-              <p className="text-muted-foreground">
+              <h1 className="text-3xl font-bold text-black mb-2">Profile Settings</h1>
+              <p className="text-black">
                 Manage your account settings and dietary preferences to get personalized recipe recommendations.
               </p>
             </div>
 
-            <ProfileHeader />
+            <div className="bg-gray-100 p-6 rounded-lg">
+              <ProfileHeader />
+            </div>
             <ProfileTabs />
           </div>
         </main>
